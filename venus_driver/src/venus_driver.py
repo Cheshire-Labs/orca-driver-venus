@@ -1,4 +1,4 @@
-from core.drivers.driver_interfaces import ILabwarePlaceableDriver
+from drivers.driver_interfaces import ILabwarePlaceableDriver
 
 
 import subprocess
