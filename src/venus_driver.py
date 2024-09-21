@@ -1,6 +1,4 @@
-from drivers.driver_interfaces import ILabwarePlaceableDriver
-
-
+from orca_driver_interface.driver_interfaces import ILabwarePlaceableDriver
 import subprocess
 from typing import Any, Dict, Optional
 
@@ -71,8 +69,8 @@ class VenusProtocolDriver(ILabwarePlaceableDriver):
             raise NotImplementedError(f"The action '{command}' is unknown for {self._name} of type {type(self).__name__}")
 
     def _execute_protocol(self, hsl_path: str) -> None:
+        self._is_running = True
         try:
-            self._is_running = True
             subprocess.run([self._exe_path, "-t", hsl_path], shell=True, check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error: {e}")
