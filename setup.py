@@ -12,7 +12,7 @@ setup(
     author='Cheshire Labs',
     author_email='michaeltsalmi@cheshirelabs.com',
     url='https://github.com/Cheshire-Labs/venus-driver',
-    packages=find_packages(include=['venus_driver', 'venus_driver.*']),
+    packages=find_packages(where='src'),
     install_requires=read_requirements(),
     classifiers=[
         'Programming Language :: Python :: 3.10',
