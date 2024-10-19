@@ -6,7 +6,7 @@ def read_requirements():
         return req_file.read().splitlines()
 
 setup(
-    name='venus-orca-driver',
+    name='orca-driver-venus',
     version='0.1.0', 
     description='Hamilton Venus command line driver',
     author='Cheshire Labs',
