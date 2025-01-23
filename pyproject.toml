@@ -30,5 +30,6 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "*" = [
-    "py.typed"
+    "py.typed",
+    "driver.json"
 ]
