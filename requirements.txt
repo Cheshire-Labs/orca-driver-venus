@@ -1,5 +1,5 @@
 backcall==0.2.0
-cheshire_orca_interfaces @ git+https://github.com/Cheshire-Labs/orca-interfaces.git@main#egg=cheshire_orca_interfaces
+orca_interfaces==0.1.0
 colorama==0.4.6
 docopt==0.6.2
 exceptiongroup==1.1.1
