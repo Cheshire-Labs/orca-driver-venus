@@ -28,7 +28,7 @@ dev = [
 ]
 
 [project.urls]
-"Repository" =  "https://github.com/Cheshire-Labs/venus-driver"
+"Repository" =  "https://github.com/Cheshire-Labs/orca-driver-venus"
 
 [tool.setuptools.packages.find]
 where = ["src"]
