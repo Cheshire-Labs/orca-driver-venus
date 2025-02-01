@@ -1,2 +1,6 @@
 venus_driver/__pycache__
+.mypy_cache
 .venv
+*.egg-info
+build/
+*.pyc
