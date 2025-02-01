@@ -95,7 +95,7 @@ class VenusProtocolDriver(ILabwarePlaceableDriver):
         if command == "run":
             self._write_options_to_json_file(options)
             if 'method' not in options.keys():
-                raise KeyError("The venus method was not provided in the command options")
+                raise KeyError("The venus method was not provided in the command options.  'method' must be included with command")
             method = options["method"]
             if not os.path.exists(method):
                 method = os.path.join(self._methods_folder, method)
@@ -128,7 +128,7 @@ if __name__ == "__main__":
         await driver.execute("run", {
             "method": "Cheshire Labs\\VariableAccessTesting.hsl",
             "params": {
-                "strParam": "Test strParam",
+                "strParam": "strParam value transmitted",
                 "intParam": 123,
                 "fltParam": 1.003
                 }
