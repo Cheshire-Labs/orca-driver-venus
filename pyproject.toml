@@ -19,7 +19,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "orca_interfaces>=0.1.0",
+    "orca_interfaces==0.1.0",
 ]
 [project.optional-dependencies]
 dev = [
