@@ -8,7 +8,9 @@ from typing import Any, Dict, Optional
 hsl_run_exe_path = r"C:\Program Files (x86)\HAMILTON\Bin\HxRun.exe"
 
 class VenusProtocolDriver(ILabwarePlaceableDriver):
-
+    """
+    Driver for interfacing with Hamilton Venus protocols.
+    """
 
     def __init__(self, name: str):
         self._name = name
