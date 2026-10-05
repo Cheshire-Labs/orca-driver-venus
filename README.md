@@ -33,4 +33,6 @@ A method run by `run_protocol` receives every key of the dictionary passed to it
 
 A pick or place hook method receives `action`, `labware_name`, `labware_type`, `site` and `barcode`. Read them all with `GetConfigProperty_String`. A missing site or barcode is an empty string.
 
+Every method Orca starts also receives `action`, which says why it ran: `run`, `initialize`, `open`, `close`, `prepare_for_place`, `notify_placed`, `prepare_for_pick` or `notify_picked`. Each hook can name its own method, and then the method can ignore `action`. To handle several hooks in one method, point them at the same `.hsl` file, read `action` with `GetConfigProperty_String`, and branch on it with an If statement. `action` is reserved: a value named `action` passed to `run_protocol` is replaced with `run`.
+
 Orca writes the values to `%TEMP%\CheshireLabs\Orca\actionConfig.json` just before it starts the method, and the library reads them from there.
