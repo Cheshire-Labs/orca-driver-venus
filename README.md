@@ -1,6 +1,6 @@
 # Orca Venus Driver
 
-This repository holds the **ORCA submethod library** for Hamilton Venus. A Venus method uses it to read the values Orca sends it.
+This repository holds the **Orca submethod library** for Hamilton Venus. A Venus method uses it to read the values Orca sends it.
 
 In Orca v2, the Venus driver itself ships with Orca. You do not install anything from this repository except the library. Setup, the pick and place hook Venus methods, volume and tip tracking, and errors are covered in the Orca docs: [Hamilton Venus](https://cheshirelabs.io/orca/venus).
 
