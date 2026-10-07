@@ -1,39 +1,45 @@
 # Orca Venus Driver
 
-The **Orca Venus Driver** is used by **Orca** to run **Hamilton Venus** methods. This driver allows **Orca** to execute **Venus** methods and pass variables to them. If users want to pass variables from Orca to a Venus method, the method must use the **submethod library** provided in the `venus_submethod` folder.
+This repository holds the **Orca submethod library** for Hamilton Venus. A Venus method uses it to read the values Orca sends it.
 
-## 📂 Submethod Library
+In Orca v2, the Venus driver itself ships with Orca. You do not install anything from this repository except the library. Setup, the pick and place hook Venus methods, volume and tip tracking, and errors are covered in the Orca docs: [Hamilton Venus](https://cheshirelabs.io/orca/venus).
 
-The `venus_submethod` folder contains a **Hamilton submethod library** that enables Venus methods to retrieve variables from **Orca**.  Add/Remove this library into your method using Venus.
+The Python package `orca-driver-venus` on PyPI is for Orca v1 only. Its last version is tagged [`orca-v1-legacy`](https://github.com/Cheshire-Labs/orca-driver-venus/tree/orca-v1-legacy).
 
-### 📌 Methods in the Submethod Library
+## Submethod library
 
-#### `ORCA::Initialize(useDefaultValues)`
-- **Purpose**: Initializes the variable retrieval system.
-- **Parameters**:
-  - `useDefaultValues` (Integer)
-    - `0` → Retrieve values from Orca.
-    - `1` → Use default values within the Venus method (allows methods to run locally without Orca).
-- **Usage**:
-  - If `useDefaultValues = 0`, variables will be injected by **Orca**.
-  - If `useDefaultValues = 1`, `defaultValue` will be set to each variable instead.  Set this if you're running Venus locally and not using Orca at the moment.
+The `venus_submethod` folder contains the library. Add it to your Venus method in the Venus Method Editor.
 
-#### `GetConfigProperty_Float(propertyName, defaultValue, value)`
-#### `GetConfigProperty_String(propertyName, defaultValue, value)`
-#### `GetConfigProperty_Integer(propertyName, defaultValue, value)`
-- **Purpose**: Retrieve a value from Orca and assign it to a Venus variable.
-- **Parameters**:
-  - `propertyName` → The name of the property as set in the `params` key of the **Orca action**.
-  - `defaultValue` → Used if `ORCA::Initialize(1)` was called.
-  - `value` → The **Venus variable** that will receive the value (either injected by **Orca** or assigned the `defaultValue` if `useDefaultValues = 1`).
+### `ORCA::Initialize(useDefaultValues)`
 
-## 🔧 Installation
+Call this at the start of the Venus method.
 
-The **Orca Venus Driver** can be installed via **Orca’s driver installation command** or manually via **pip**:
+- `0`: read the values Orca sent.
+- `1`: ignore Orca and use each call's default value. Use this to run the Venus method in Venus without Orca.
 
-```sh
-pip install orca-driver-venus
-```
+### `GetConfigProperty_Float(propertyName, defaultValue, value)`
+### `GetConfigProperty_String(propertyName, defaultValue, value)`
+### `GetConfigProperty_Integer(propertyName, defaultValue, value)`
 
-## 🛠 Usage
-To use the driver with Venus methods, make sure your venus method calls submethod function `ORCA::Initialize(0)` at the beginning and uses the `GetConfigProperty_*` methods to retrieve values dynamically from Orca.
+Read one value into a Venus variable.
+
+- `propertyName`: the name of the value in Orca.
+- `defaultValue`: used when the Venus method called `ORCA::Initialize(1)`.
+- `value`: the Venus variable that receives the value.
+
+## When Orca starts a Venus method
+
+Orca starts a whole Venus method with HxRun, passes it values, and waits for it to run to the end. It never runs part of a Venus method.
+
+A Venus method started by `run_protocol` receives every key of the dictionary passed to it. For example, `run_protocol("MyFolder\\AddBuffer.hsl", {"vol": 50})` gives the Venus method `vol`.
+
+A pick or place hook Venus method receives `labware_name`, `labware_type`, `site` and `barcode`. A missing site or barcode is an empty string.
+
+Every Venus method Orca starts also receives `action`, which says why it was started: `run`, `initialize`, `open`, `close`, `prepare_for_place`, `notify_placed`, `prepare_for_pick` or `notify_picked`. `action` is reserved: a value named `action` passed to `run_protocol` is replaced with `run`.
+
+Each hook has its own setting, so how you organize the Venus methods is up to you:
+
+- **One Venus method per hook.** Each Venus method does one job and can ignore `action`.
+- **One Venus method for several hooks.** Set several hooks to the same `.hsl` file. That Venus method reads `action` and uses it to decide what to do. It still runs completely every time it is started.
+
+Orca writes the values to `%TEMP%\CheshireLabs\Orca\actionConfig.json` just before it starts the Venus method, and the library reads them from there.
