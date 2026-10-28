@@ -13,7 +13,7 @@ The library comes in two versions, one per instrument:
 - `venus_submethod/mlstar`: Microlab STAR and STARlet.
 - `venus_submethod/vantage`: Vantage.
 
-A Venus installation supports one instrument and has only that instrument's Hamilton library. Each version includes its instrument's library, so the other version fails to load with "cannot open include file". Add the version for your instrument to your Venus method in the Venus Method Editor. Both versions have the same file names and functions, so a Venus method's steps are the same on either instrument.
+Use the folder for your instrument, and add its library to your Venus method in the Venus Method Editor. The Vantage version does not load on a STAR or STARlet installation, because that installation has no Vantage library: Venus reports "cannot open include file: 'HSLVantageLib.hsl'". Both versions have the same file names and functions, so a Venus method's steps are the same on either instrument.
 
 ### Hamilton libraries it needs
 
