@@ -4,3 +4,4 @@ venus_driver/__pycache__
 *.egg-info
 build/
 *.pyc
+~Hx*

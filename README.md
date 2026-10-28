@@ -8,7 +8,21 @@ The Python package `orca-driver-venus` on PyPI is for Orca v1 only. Its last ver
 
 ## Submethod library
 
-The `venus_submethod` folder contains the library. Add it to your Venus method in the Venus Method Editor.
+The library comes in two versions, one per instrument:
+
+- `venus_submethod/mlstar`: Microlab STAR and STARlet.
+- `venus_submethod/vantage`: Vantage.
+
+Use the folder for your instrument, and add its library to your Venus method in the Venus Method Editor. The Vantage version does not load on a STAR or STARlet installation, because that installation has no Vantage library: Venus reports "cannot open include file: 'HSLVantageLib.hsl'". Both versions have the same file names and functions, so a Venus method's steps are the same on either instrument.
+
+### Hamilton libraries it needs
+
+The library reads Orca's values with Hamilton's HSLJson library, and HSLJson needs Hamilton's ASW Standard library. Venus does not include either one. Install both from Hamilton's download site before you add the Orca library:
+
+- [HSLJson Library v2.0.1](https://download.hamiltonsupport.com/wl/?id=vBtXgHqwGjjLLVzXmtPaxyzkIREcPhAX)
+- [ASW Standard v16](https://download.hamiltonsupport.com/wl/?id=VQY0XAzTfcT7KY29A1YJtZVFwZ7GMOO2&path=Hamilton%20Libraries%2FASW%20Standard%20v16.zip&mode=grid)
+
+Without ASW Standard, Venus reports "cannot open include file: 'ASWStandard\TraceLevel\TraceLevel.hsl'" from `HSLJson.hsl`, followed by many `TRACE_LEVEL` errors.
 
 ### `ORCA::Initialize(useDefaultValues)`
 
